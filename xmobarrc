@@ -1,20 +1,17 @@
 Config {
 
-   -- appearance
-     --font =         "xft:Misc Fixed:size=8:bold:antialias=true"
+   -- appearance (268BD2)
      font =         "xft:Schumacher Clean:size=8"
    , bgColor =      "#002b36"
-   , fgColor =      "#839496"
+   , fgColor =      "#fdf6e3"
    , position =     Top
    , border =       BottomB
-   -- , borderColor =  "#b58900"
    , borderColor =  "#000000"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader%}{%battery% | %cpu% | %memory% | %swap% | %dynnetwork%%wlp3s0wi%%date%"
-   --, template = "}{%battery% | %multicpu% | %memory% | %dynnetwork%"
+   , template = "%StdinReader%}{<fc=#839496><icon=.xmobar/icons/pacman.xbm/></fc>%pacupdates% updates %battery% %cpu% %memory%/%swap% %wlp3s0wi% %date%"
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -42,41 +39,35 @@ Config {
         [
           Run StdinReader
 
-          -- network activity monitor (dynamic interface resolution)
-          , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s:<rx>kB/s"
-                               -- , "--Low"      , "1000"       -- units: B/s
-                               -- , "--High"     , "5000"       -- units: B/s
-                               -- , "--low"      , "darkgreen"
-                               -- , "--normal"   , "darkorange"
-                               -- , "--high"     , "darkred"
-                               ] 10
+          , Run Cpu [ "--template", "<fc=#839496><icon=.xmobar/icons/cpu2.xbm/></fc><total>%"
+				    ] 10
 
-          , Run Cpu [] 10
-          , Run Swap [] 10
-          , Run Wireless "wlp3s0" [ "--template", "<fc=#268BD2><icon=.xmobar/icons/wifi_02.xbm/><essid> <quality>%</fc>"
+          , Run Swap [ "--template", "<usedratio>%"
+					 ] 10
+          , Run Wireless "wlp3s0" [ "--template", "<fc=#839496><icon=.xmobar/icons/wifi_02.xbm/><essid></fc> <quality>%"
                                     , "--High"  , "80"
                                     , "--Low"   , "40"
-                                    , "--high"	, "#268bd2"
-                                    , "--normal", "#b58900"
-                                    , "--low"   , "#dc322f"
+                                    , "--high"	, "#fdf6e3"
+                                    , "--normal", "#fdf6e3"
+                                    , "--low"   , "#eee8d5"
                                   ] 10
 
           -- memory usage monitor
-          , Run Memory         [ "--template" ,"Mem: <usedratio>%"
+          , Run Memory         [ "--template" ,"<fc=#839496><icon=.xmobar/icons/mem2.xbm/></fc><usedratio>%"
                                , "--Low"      , "20"        -- units: %
                                , "--High"     , "90"        -- units: %
-                               , "--low"      , "darkgreen"
-                               , "--normal"   , "darkorange"
-                               , "--high"     , "darkred"
+                               , "--low"      , "#fdf6e3"
+                               , "--normal"   , "#fdf6e3"
+                               , "--high"     , "#eee8d5"
                                ] 10
 
           -- battery monitor
-          , Run Battery        [ "--template" , "Batt: <acstatus>"
-                               , "--Low"      , "10"        -- units: %
+          , Run Battery        [ "--template" , "<fc=#839496><icon=.xmobar/icons/bat_full_01.xbm/></fc><acstatus>"
+                               , "--Low"      , "30"        -- units: %
                                , "--High"     , "80"        -- units: %
-                               , "--low"      , "darkred"
-                               , "--normal"   , "darkorange"
-                               , "--high"     , "darkgreen"
+                               , "--low"      , "#eee8d5"
+                               , "--normal"   , "#fdf6e3"
+                               , "--high"     , "#fdf6e3"
 
                                , "--" -- battery specific options
                                          -- discharging status
@@ -89,7 +80,8 @@ Config {
 
           -- time and date indicator 
           --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-          , Run Date           "<fc=#859900><icon=.xmobar/icons/clock.xbm/>%F %T</fc>" "date" 10
+          , Run Date           "<fc=#839496><icon=.xmobar/icons/clock.xbm/></fc>%F %T" "date" 10
+		  , Run Com "/home/liam/.xmobar/updatecount" [] "pacupdates" 108000
         ]
    }
 
