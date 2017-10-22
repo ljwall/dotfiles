@@ -9,6 +9,7 @@ import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS)
 -- import XMonad.Layout.IndependentScreens (countScreens)
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import System.IO
+import Data.List(find)
 
 -- Solarized colours
 base03 =  "#002b36"
@@ -68,4 +69,17 @@ fmtCurrentWS x = xmobarColor base3 ""  $ "[" ++ x ++ "]"
 
 fmtHiddenWS :: String -> String
 fmtHiddenWS x = xmobarColor base0 "" x
+
+getWorkspace :: ScreenId -> X (Maybe WorkspaceId)
+getWorkspace id = do
+    cur <- (get >>= (return . current . windowset))
+    vis <- (get >>= (return . visible . windowset))
+    return $ if (screen  cur) == id
+        then Just (tag . workspace $ cur)
+        else Just "1"
+
+getWorkspace' :: ScreenId -> [XMonad.StackSet.Screen WorkspaceId a b ScreenId c] -> Maybe WorkspaceId
+getWorkspace' id xs = do
+    x <- find (\x -> screen x == id) xs
+    return (tag . workspace $ x)
 
