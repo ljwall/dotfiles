@@ -36,7 +36,7 @@ main = do
             [ manageHook defaultConfig,
               manageDocks,
               className =? "Gimp"  --> doFloat,
-              className =? "XTerm" --> doTransparent 0.85
+              (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
             ],
           logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc,
