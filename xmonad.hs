@@ -6,6 +6,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig (additionalKeys)
 -- import XMonad.Layout.IndependentScreens (countScreens)
+import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import System.IO
 
 -- Solarized colours
@@ -36,6 +37,7 @@ main = do
             [ manageHook defaultConfig,
               manageDocks,
               className =? "Gimp"  --> doFloat,
+              className =? "feh" --> doCenterFloat,
               (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
             ],
           logHook = dynamicLogWithPP xmobarPP
