@@ -4,7 +4,8 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.EZConfig (additionalKeys, additionalKeysP)
+import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS)
 -- import XMonad.Layout.IndependentScreens (countScreens)
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import System.IO
@@ -53,6 +54,10 @@ main = do
         } `additionalKeys` [
             ((mod4Mask, xK_p), spawn "rofi -show run -modi run,ssh -no-parse-known-hosts"),
             ((mod4Mask, xK_s), spawn "rofi -show ssh -modi run,ssh -no-parse-known-hosts")
+        ] `additionalKeysP` [
+            ("M--", toggleWS),
+            ("M-i", nextWS),
+            ("M-u", prevWS)
         ]
 
 doTransparent :: Float -> ManageHook
