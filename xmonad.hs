@@ -28,6 +28,10 @@ blue =    "#268bd2"
 cyan =    "#2aa198"
 green =   "#859900"
 
+dmenuOptions = " -fn \"Schumacher Clean-8\"" ++
+    " -nb \"" ++ base03 ++ "\" -nf \"" ++ base3 ++ "\"" ++
+    " -sf \"" ++ base03 ++ "\" -sb \"" ++ yellow ++ "\""
+
 main = do
     -- nscreen <- countScreens
     xmproc <- spawnPipe "/usr/bin/xmobar /home/liam/.xmobarrc"
@@ -53,8 +57,8 @@ main = do
             wstags <- (ask >>= (return . XMonad.workspaces . config))
             io $ hPutStrLn xmproc ("Hello " ++ (show wstags) ++ " " ++ (xmobarColor blue base03 currentTag)) -}
         } `additionalKeys` [
-            ((mod4Mask, xK_p), spawn "rofi -show run -modi run,ssh -no-parse-known-hosts"),
-            ((mod4Mask, xK_s), spawn "rofi -show ssh -modi run,ssh -no-parse-known-hosts")
+            ((mod4Mask, xK_p), spawn ("dmenu_run" ++ dmenuOptions)),
+            ((mod4Mask, xK_s), spawn ("/home/liam/dotfiles/dmenu_ssh" ++ dmenuOptions))
         ] `additionalKeysP` [
             ("M--", toggleWS),
             ("M-i", nextWS),

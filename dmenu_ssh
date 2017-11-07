@@ -1,0 +1,5 @@
+#! /usr/bin/bash
+
+HOST=$(grep -e "^[hH]ost" ~/.ssh/config | awk '{print $2}' | dmenu  "$@")
+
+xterm -e "ssh $HOST" &
