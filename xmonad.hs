@@ -44,6 +44,7 @@ main = do
               className =? "Gimp"  --> doFloat,
               className =? "feh" --> doCenterFloat,
               className =? "Pavucontrol" --> doCenterFloat,
+              className =? "Pinentry" --> doCenterFloat,
               (stringProperty "WM_WINDOW_ROLE") =? "Msgcompose" --> doCenterFloat,
               (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
             ],
@@ -58,6 +59,7 @@ main = do
             wstags <- (ask >>= (return . XMonad.workspaces . config))
             io $ hPutStrLn xmproc ("Hello " ++ (show wstags) ++ " " ++ (xmobarColor blue base03 currentTag)) -}
         } `additionalKeys` [
+            ((mod4Mask, xK_v), spawn ("passmenu" ++ dmenuOptions)),
             ((mod4Mask, xK_p), spawn ("dmenu_run" ++ dmenuOptions)),
             ((mod4Mask, xK_s), spawn ("/home/liam/dotfiles/dmenu_ssh" ++ dmenuOptions))
         ] `additionalKeysP` [
