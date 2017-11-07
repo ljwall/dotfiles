@@ -43,6 +43,7 @@ main = do
               manageDocks,
               className =? "Gimp"  --> doFloat,
               className =? "feh" --> doCenterFloat,
+              className =? "Pavucontrol" --> doCenterFloat,
               (stringProperty "WM_WINDOW_ROLE") =? "Msgcompose" --> doCenterFloat,
               (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
             ],
