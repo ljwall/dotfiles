@@ -46,6 +46,7 @@ main = do
               className =? "Pavucontrol" --> doCenterFloat,
               className =? "Pinentry" --> doCenterFloat,
               (stringProperty "WM_WINDOW_ROLE") =? "Msgcompose" --> doCenterFloat,
+              (stringProperty "WM_WINDOW_ROLE") =? "AlarmWindow" --> doCenterFloat,
               (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
             ],
           logHook = dynamicLogWithPP xmobarPP
