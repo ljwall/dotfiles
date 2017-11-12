@@ -28,7 +28,7 @@ blue =    "#268bd2"
 cyan =    "#2aa198"
 green =   "#859900"
 
-dmenuOptions = " -fn \"Schumacher Clean-8\"" ++
+dmenuOptions = " -fn \"Schumacher Clean-10\"" ++
     " -nb \"" ++ base03 ++ "\" -nf \"" ++ base3 ++ "\"" ++
     " -sf \"" ++ base03 ++ "\" -sb \"" ++ yellow ++ "\""
 

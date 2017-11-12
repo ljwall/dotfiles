@@ -1,7 +1,7 @@
 Config {
 
    -- appearance (268BD2)
-     font =         "xft:Schumacher Clean:size=8"
+     font =         "xft:Schumacher Clean:size=10"
    , bgColor =      "#002b36"
    , fgColor =      "#fdf6e3"
    , position =     Top
