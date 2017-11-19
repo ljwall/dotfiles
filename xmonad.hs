@@ -34,7 +34,7 @@ dmenuOptions = " -i -fn \"Schumacher Clean-10\"" ++
 
 main = do
     -- nscreen <- countScreens
-    xmproc <- spawnPipe "/usr/bin/xmobar /home/liam/.xmobarrc"
+    xmproc <- spawnPipe "/usr/bin/xmobar -x 1 /home/liam/.xmobarrc"
     xmonad $ desktopConfig
         { modMask     = mod4Mask,
           layoutHook = avoidStruts $ layoutHook defaultConfig,
