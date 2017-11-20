@@ -11,7 +11,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%StdinReader%}{<fc=#839496><icon=.xmobar/icons/pacman.xbm/></fc>%pacupdates% updates %battery% %cpu% %memory%/%swap% %wlp3s0wi% %date%"
+   , template = "%StdinReader%}{<fc=#839496><icon=.xmobar.d/icons/pacman.xbm/></fc>%pacupdates% updates %battery% %cpu% %memory%/%swap% %wlp3s0wi% %date%"
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -39,12 +39,12 @@ Config {
         [
           Run StdinReader
 
-          , Run Cpu [ "--template", "<fc=#839496><icon=.xmobar/icons/cpu2.xbm/></fc><total>%"
+          , Run Cpu [ "--template", "<fc=#839496><icon=.xmobar.d/icons/cpu2.xbm/></fc><total>%"
 				    ] 10
 
           , Run Swap [ "--template", "<usedratio>%"
 					 ] 10
-          , Run Wireless "wlp3s0" [ "--template", "<fc=#839496><icon=.xmobar/icons/wifi_02.xbm/><essid></fc> <quality>%"
+          , Run Wireless "wlp3s0" [ "--template", "<fc=#839496><icon=.xmobar.d/icons/wifi_02.xbm/><essid></fc> <quality>%"
                                     , "--High"  , "80"
                                     , "--Low"   , "40"
                                     , "--high"	, "#fdf6e3"
@@ -53,7 +53,7 @@ Config {
                                   ] 10
 
           -- memory usage monitor
-          , Run Memory         [ "--template" ,"<fc=#839496><icon=.xmobar/icons/mem2.xbm/></fc><usedratio>%"
+          , Run Memory         [ "--template" ,"<fc=#839496><icon=.xmobar.d/icons/mem2.xbm/></fc><usedratio>%"
                                , "--Low"      , "20"        -- units: %
                                , "--High"     , "90"        -- units: %
                                , "--low"      , "#fdf6e3"
@@ -62,7 +62,7 @@ Config {
                                ] 10
 
           -- battery monitor
-          , Run Battery        [ "--template" , "<fc=#839496><icon=.xmobar/icons/bat_full_01.xbm/></fc><acstatus>"
+          , Run Battery        [ "--template" , "<fc=#839496><icon=.xmobar.d/icons/bat_full_01.xbm/></fc><acstatus>"
                                , "--Low"      , "30"        -- units: %
                                , "--High"     , "80"        -- units: %
                                , "--low"      , "#eee8d5"
@@ -80,8 +80,8 @@ Config {
 
           -- time and date indicator 
           --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-          , Run Date           "<fc=#839496><icon=.xmobar/icons/clock.xbm/></fc>%F %T" "date" 10
-		  , Run Com "/home/liam/.xmobar/updatecount" [] "pacupdates" 108000
+          , Run Date           "<fc=#839496><icon=.xmobar.d/icons/clock.xbm/></fc>%F %T" "date" 10
+		  , Run Com "/home/liam/.xmobar.d/updatecount" [] "pacupdates" 108000
         ]
    }
 
