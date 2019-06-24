@@ -7,6 +7,7 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig (additionalKeys, additionalKeysP)
 import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS)
 -- import XMonad.Layout.IndependentScreens (countScreens)
+import XMonad.Layout.Spacing
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import System.IO
 
@@ -37,7 +38,8 @@ main = do
     xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/liam/.xmobarrc"
     xmonad $ desktopConfig
         { modMask     = mod4Mask,
-          layoutHook = avoidStruts $ layoutHook defaultConfig,
+          layoutHook =  avoidStruts $ spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True $ layoutHook def,
+          terminal = "urxvt",
           manageHook = composeAll
             [ manageHook defaultConfig,
               manageDocks,
@@ -45,9 +47,9 @@ main = do
               className =? "feh" --> doCenterFloat,
               className =? "Pavucontrol" --> doCenterFloat,
               className =? "Pinentry" --> doCenterFloat,
-              (stringProperty "WM_WINDOW_ROLE") =? "Msgcompose" --> doCenterFloat,
-              (stringProperty "WM_WINDOW_ROLE") =? "AlarmWindow" --> doCenterFloat,
-              (className =? "XTerm") <||> (className =? "UXTerm") --> doTransparent 0.85
+              stringProperty "WM_WINDOW_ROLE" =? "Msgcompose" --> doCenterFloat,
+              stringProperty "WM_WINDOW_ROLE" =? "AlarmWindow" --> doCenterFloat,
+              (className =? "XTerm") <||> (className =? "UXTerm") <||> (className =? "URxvt") --> doTransparent 0.85
             ],
           logHook = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc,
@@ -61,10 +63,10 @@ main = do
             io $ hPutStrLn xmproc ("Hello " ++ (show wstags) ++ " " ++ (xmobarColor blue base03 currentTag)) -}
         } `additionalKeys` [
             ((mod4Mask, xK_v), spawn ("passmenu" ++ dmenuOptions)),
-            ((mod4Mask, xK_p), spawn ("dmenu_run" ++ dmenuOptions)),
-            ((mod4Mask, xK_s), spawn ("/home/liam/dotfiles/dmenu_ssh" ++ dmenuOptions))
+            ((mod4Mask, xK_p), spawn ("dmenu_run" ++ dmenuOptions))
         ] `additionalKeysP` [
             ("M--", toggleWS),
+            ("M-0", toggleWS),
             ("M-i", nextWS),
             ("M-u", prevWS)
         ]
