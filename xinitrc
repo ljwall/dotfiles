@@ -14,6 +14,7 @@ xbindkeys
 
 xautolock -time 5 -locker slock &
 
+# exec xmonad-stack-exe
 exec xmonad
 # exec xfwm4
 # exec awesome

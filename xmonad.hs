@@ -3,10 +3,12 @@ import XMonad.StackSet
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.SetWMName
+import XMonad.Layout.Tabbed
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig (additionalKeys, additionalKeysP)
 import XMonad.Actions.CycleWS (nextWS, prevWS, toggleWS)
--- import XMonad.Layout.IndependentScreens (countScreens)
+import XMonad.Layout.IndependentScreens (countScreens)
 import XMonad.Layout.Spacing
 import XMonad.Hooks.ManageHelpers (doCenterFloat)
 import System.IO
@@ -38,8 +40,12 @@ main = do
     xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/liam/.xmobarrc"
     xmonad $ desktopConfig
         { modMask     = mod4Mask,
-          layoutHook =  avoidStruts $ spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True $ layoutHook def,
+          startupHook         = do
+              startupHook desktopConfig
+              setWMName "LG3D"
+          , layoutHook =  avoidStruts $ spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True $ layoutHook def,
           terminal = "urxvt",
+          -- terminal = "xterm",
           manageHook = composeAll
             [ manageHook defaultConfig,
               manageDocks,
